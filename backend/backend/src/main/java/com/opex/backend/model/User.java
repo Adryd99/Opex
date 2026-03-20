@@ -1,14 +1,13 @@
 package com.opex.backend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +24,10 @@ public class User {
     private String lastName;
 
     private String customerId;
+    private String identifier;
+    private java.time.LocalDateTime createdAt;
+    private java.time.LocalDateTime blockedAt;
+    private java.time.LocalDateTime updatedAt;
     private String connectionId;
     private LocalDate dob;
 
@@ -39,6 +42,7 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String answer5;
 
+    private Boolean isActiveSaltedge = false;
     private Boolean isActive = true;
 
     public User(String id, String email, String firstName, String lastName) {

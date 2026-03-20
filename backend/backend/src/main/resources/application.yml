@@ -32,3 +32,8 @@ keycloak-admin:
   username: admin
   password: kJWQ9TC4FKUFVNi9p2zw
   target-realm: opex
+
+# --- CONFIGURAZIONE MICROSERVIZI ESTERNI ---
+external-services:
+  saltedge-microservice:
+    url: http://localhost:8082
