@@ -88,7 +88,6 @@ public class UserService {
 
         // 4. Aggiorno i campi extra (esclusivi del DB PostgreSQL)
         if (request.getCustomerId() != null) user.setCustomerId(request.getCustomerId());
-        if (request.getConnectionId() != null) user.setConnectionId(request.getConnectionId());
         if (request.getDob() != null) user.setDob(request.getDob());
         if (request.getAnswer1() != null) user.setAnswer1(request.getAnswer1());
         if (request.getAnswer2() != null) user.setAnswer2(request.getAnswer2());

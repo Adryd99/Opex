@@ -1,9 +1,11 @@
 package com.saltedgeproxy.app.saltedgeproxy.config;
 
 import com.saltedgeproxy.app.saltedgeproxy.model.BankAccount;
+import com.saltedgeproxy.app.saltedgeproxy.model.BankConnection;
 import com.saltedgeproxy.app.saltedgeproxy.model.Transaction;
 import com.saltedgeproxy.app.saltedgeproxy.model.User;
 import com.saltedgeproxy.app.saltedgeproxy.repository.BankAccountRepository;
+import com.saltedgeproxy.app.saltedgeproxy.repository.BankConnectionRepository;
 import com.saltedgeproxy.app.saltedgeproxy.repository.TransactionRepository;
 import com.saltedgeproxy.app.saltedgeproxy.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,31 +23,43 @@ public class DataInitializer {
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository,
                                  BankAccountRepository bankAccountRepository,
-                                 TransactionRepository transactionRepository) {
+                                 TransactionRepository transactionRepository,
+                                 BankConnectionRepository bankConnectionRepository) {
         return args -> {
             // 1. Creazione Utente 1 (Già connesso a SaltEdge)
             User user1 = new User("user_001", "mario.rossi@example.com", "Mario", "Rossi");
-            user1.setIdentifier("mrossi_id");
             user1.setCustomerId("saltedge_customer_123");
-            user1.setConnectionId("saltedge_conn_456");
             user1.setDob(LocalDate.of(1985, 5, 20));
             user1.setIsActive(true);
-            user1.setCreatedAt(LocalDateTime.now());
             userRepository.save(user1);
+
+            // Connessione per Utente 1
+            BankConnection conn1 = new BankConnection();
+            conn1.setId("saltedge_conn_456");
+            conn1.setUserId(user1.getId());
+            conn1.setProviderName("Intesa Sanpaolo");
+            conn1.setStatus("active");
+            conn1.setCreatedAt(LocalDate.now());
+            bankConnectionRepository.save(conn1);
 
             // 2. Creazione Utente 2 (Nuovo, senza SaltEdge)
             User user2 = new User("user_002", "luigi.bianchi@example.com", "Luigi", "Bianchi");
-            user2.setIdentifier("lbianchi_id");
             user2.setCustomerId("1759200260577561427");
-            user2.setConnectionId("1759217008047557386");
-            user2.setCreatedAt(LocalDateTime.now());
             userRepository.save(user2);
+
+            BankConnection conn2 = new BankConnection();
+            conn2.setId("1759217008047557386");
+            conn2.setUserId(user2.getId());
+            conn2.setProviderName("Banca Esempio");
+            conn2.setStatus("active");
+            conn2.setCreatedAt(LocalDate.now());
+            bankConnectionRepository.save(conn2);
 
             // 3. Creazione Conto Bancario per Utente 1
             BankAccount account1 = new BankAccount();
             account1.setSaltedgeAccountId("account_001");
             account1.setUserId(user1.getId());
-            account1.setConnectionId("saltedge_conn_456");
+            account1.setConnectionId(conn1.getId());
             account1.setBalance(new BigDecimal("1250.50"));
             account1.setInstitutionName("Intesa Sanpaolo");
             account1.setCountry("IT");

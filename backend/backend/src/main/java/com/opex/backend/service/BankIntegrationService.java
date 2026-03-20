@@ -27,10 +27,10 @@ public class BankIntegrationService {
     }
 
     // 3. Il metodo che userà il Controller
-    public Map<String, Object> syncWithMicroservice(String userId) {
+    public String syncWithMicroservice(String userId) {
         return restClient.post()
-                .uri("/api/users/{id}", userId)
+                .uri(microserviceUrl+"/api/users/{id}", userId)
                 .retrieve()
-                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+                .body(String.class);
     }
 }

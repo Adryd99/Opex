@@ -1,5 +1,6 @@
 package com.opex.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,6 +21,7 @@ public class Tax {
     @Id
     private String id; // Es. "tax_local_..." oppure l'ID del servizio esterno
 
+    @Column(name = "user_id")
     private String userId; // L'ID di Keycloak del proprietario
 
     private LocalDate deadline;
@@ -30,5 +32,6 @@ public class Tax {
     private String currency; // Es. "EUR"
 
     // Flag fondamentale per distinguere se l'abbiamo creata noi o un servizio esterno
+    @Column(name = "is_external")
     private Boolean isExternal;
 }

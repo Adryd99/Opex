@@ -66,6 +66,14 @@ public class SaltEdgeService {
         return response.getBody();
     }
 
+    public SaltEdgeConnectionsResponse getConnections(String customerId) {
+        System.out.println("Getting connections for customer: " + customerId);
+        String url = BASE_URL + "/connections?customer_id=" + customerId;
+        HttpEntity<Void> entity = new HttpEntity<>(getHeaders());
+        ResponseEntity<SaltEdgeConnectionsResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, SaltEdgeConnectionsResponse.class);
+        return response.getBody();
+    }
+
     public SaltEdgeTransactionResponse getTransactions(String connectionId, String accountId) {
         System.out.println("Getting transactions");
         String url = BASE_URL + "/transactions?connection_id=" + connectionId + "&account_id=" + accountId;

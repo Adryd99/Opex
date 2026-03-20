@@ -20,11 +20,6 @@ public class User {
     private String lastName;
 
     private String customerId;
-    private String identifier;
-    private java.time.LocalDateTime createdAt;
-    private java.time.LocalDateTime blockedAt;
-    private java.time.LocalDateTime updatedAt;
-    private String connectionId;
     private LocalDate dob;
 
     @Column(columnDefinition = "TEXT")

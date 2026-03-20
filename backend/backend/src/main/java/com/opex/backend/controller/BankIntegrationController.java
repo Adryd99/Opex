@@ -24,12 +24,12 @@ public class BankIntegrationController {
      * URL: http://localhost:8080/api/bank-integration/sync
      */
     @PostMapping("/sync")
-    public ResponseEntity<Map<String, Object>> syncBank(@AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<String> syncBank(@AuthenticationPrincipal Jwt jwt) {
         // Estraiamo sempre in modo sicuro l'ID utente dal token
         String userId = jwt.getClaimAsString("sub");
 
         // Facciamo la chiamata al microservizio
-        Map<String, Object> response = bankIntegrationService.syncWithMicroservice(userId);
+        String response = bankIntegrationService.syncWithMicroservice(userId);
 
         // Restituiamo il JSON identico a quello del microservizio
         return ResponseEntity.ok(response);

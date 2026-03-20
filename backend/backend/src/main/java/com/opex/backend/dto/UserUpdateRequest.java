@@ -12,7 +12,6 @@ public class UserUpdateRequest {
 
     // --- Campi extra (solo su DB Postgres) ---
     private String customerId;
-    private String connectionId;
     private LocalDate dob;
     private String answer1;
     private String answer2;
